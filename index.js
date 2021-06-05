@@ -54,7 +54,7 @@ function intern() {
     inquirer
         .prompt(require("./internQuestions"))
         .then( (response) => {
-            const intern = new Intern(response.name, response.id, response.email, response.school);
+            const intern = new Intern(response.name, response.id, response.email, response.university);
             // Add intern object to team list
             team.push(intern);
             // Run moreQs function to ask if more members should be added
