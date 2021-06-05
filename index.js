@@ -1,54 +1,94 @@
-// Include packages needed for this application
+// Packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+//Employee classes
+const Manager;
+const Engineer;
+const Intern;
+
+//Empty list to push team members to
+const team = [];
+
+// Questions for adding more members or ending 
+const moreQs = [
+    {
+        type: "list",
+        message: "Which type of team member would you like to add?",
+        name: "add",
+        choices: [
+            "Engineer",
+            "Intern",
+            "I don't want to add anymore team members"
+        ]
+    }
+];
+
+function manager() {
+    inquirer
+        // ask manager questions
+        .prompt(require("./managerQuestions"))
+        // take the response and create a new manager
+        .then( (response) => {
+            const manager = new Manager(response.name, response.id, response.email, response.officeNumber);
+            // Add manager object to team list
+            team.push(manager);
+            // Run moreQs function to ask if more members should be added
+            addMore();
+        });
+}
+
+function engineer() {
+    inquirer
+        .prompt(require("./engineerQuestions"))
+        .then( (response) => {
+            const engineer = new Engineer(response.name, response.id, response.email, response.github);
+            // Add engineer object to team list
+            team.push(engineer);
+            // Run moreQs function to ask if more members should be added
+            addMore();
+        });
+}
+
+function intern() {
+    inquirer
+        .prompt(require("./internQuestions"))
+        .then( (response) => {
+            const intern = new Intern(response.name, response.id, response.email, response.school);
+            // Add intern object to team list
+            team.push(intern);
+            // Run moreQs function to ask if more members should be added
+            addMore();
+        });
+}
+
+function addMore() {
+    inquirer
+        .prompt(moreQuestions)
+        .then( (response) => {
+            switch (response.add) {
+                case "Engineer":
+                    engineer();
+                    break;
+                case "Intern":
+                    intern();
+                    break;
+                default:
+                    console.log("Thank you, your team HTML file has been generated.");
+                    // if done, write to file with info provided
+                    // call the generateTeam function to create the HTML
+                    // https://stackoverflow.com/questions/2496710/writing-files-in-node-js
+                    fs.writeFileSync("./output/index.html", generateTeam(team));
+            }
+        });
+}
+
+function init() {
+    // Welcome message
+    console.log("Please add your team members:");
+    // Start with manager function
+    manager();
+}
 
 // Prompt questions for user input
-const questions = [
-    {
-        type: 'input',
-        name: 'title',
-        message: 'What is the title of your project?',
-    },
-    {
-        type: 'input',
-        name: 'description',
-        message: 'How would you describe your project?',
-    },
-    {
-        type: 'input',
-        name: 'installation',
-        message: 'What are the installation instructions for your project?',
-    },
-    {
-        type: 'input',
-        name: 'usage',
-        message: 'What are the instructions for use of the project?',
-    },
-    {
-        type: 'input',
-        name: 'contributors',
-        message: 'What are the GitHub usernames of the fellow contributors, if any?',
-    },
-    {
-        type: 'list',
-        name: 'license',
-        message: 'Which license was used for this project, if any?',
-        choices: ["Apache", "Artistic", "Boost", "BSD 3", "BSD 2", "Eclipse", "IBM", "ISC", "MIT", "Mozilla", "Perl", "SIL", "Unlicense", "WTFPL", "Zlib", "None"],
-    },
-    {
-        type: 'input',
-        name: 'github',
-        message: 'What is your GitHub username?',
-    },
-    {
-        type: 'input',
-        name: 'email',
-        message: 'What is your email address?',
-    },
-    {
-        type: 'input',
-        name: 'filename',
-        message: 'Please provide a file name.',
-    },
-];
+init(); 
