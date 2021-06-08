@@ -27,7 +27,7 @@ const moreQuestions = [
 function manager() {
     inquirer
         // Ask manager questions
-        .prompt(require("./managerQuestions"))
+        .prompt(require("./src/managerQuestions"))
         // Take the response and create a new manager
         .then( (response) => {
             const manager = new Manager(response.name, response.id, response.email, response.officeNumber);
@@ -40,7 +40,7 @@ function manager() {
 
 function engineer() {
     inquirer
-        .prompt(require("./engineerQuestions"))
+        .prompt(require("./src/engineerQuestions"))
         .then( (response) => {
             const engineer = new Engineer(response.name, response.id, response.email, response.github);
             // Add engineer object to team list
@@ -52,7 +52,7 @@ function engineer() {
 
 function intern() {
     inquirer
-        .prompt(require("./internQuestions"))
+        .prompt(require("./src/internQuestions"))
         .then( (response) => {
             const intern = new Intern(response.name, response.id, response.email, response.university);
             // Add intern object to team list
@@ -77,7 +77,7 @@ function addMore() {
                     console.log("Thank you, your team HTML file has been generated.");
                     // If done, write to file with info provided
                     // Call the generateTeam function to create the HTML
-                    fs.writeFileSync("./output/index.html", generateTeam(team));
+                    fs.writeFileSync("./dist/index.html", generateTeam(team));
             }
         });
 }
