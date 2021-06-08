@@ -20,3 +20,5 @@ const internQs = [
         name: "university",
     }
 ];
+
+module.exports = internQs;

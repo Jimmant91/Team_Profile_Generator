@@ -20,3 +20,5 @@ const engineerQs = [
         name: "github",
     }
 ];
+
+module.exports = engineerQs;

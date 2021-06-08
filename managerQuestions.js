@@ -20,3 +20,5 @@ const managerQs = [
         name: "officeNumber",
     }  
 ];
+
+module.exports = managerQs;

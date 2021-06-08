@@ -3,15 +3,15 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 //Employee classes
-const Manager;
-const Engineer;
-const Intern;
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 
 //Empty list to push team members to
 const team = [];
 
 // Questions for adding more members or ending 
-const moreQs = [
+const moreQuestions = [
     {
         type: "list",
         message: "Which type of team member would you like to add?",
@@ -26,14 +26,14 @@ const moreQs = [
 
 function manager() {
     inquirer
-        // ask manager questions
+        // Ask manager questions
         .prompt(require("./managerQuestions"))
-        // take the response and create a new manager
+        // Take the response and create a new manager
         .then( (response) => {
             const manager = new Manager(response.name, response.id, response.email, response.officeNumber);
             // Add manager object to team list
             team.push(manager);
-            // Run moreQs function to ask if more members should be added
+            // Run moreQuestions function to ask if more members should be added
             addMore();
         });
 }
@@ -45,7 +45,7 @@ function engineer() {
             const engineer = new Engineer(response.name, response.id, response.email, response.github);
             // Add engineer object to team list
             team.push(engineer);
-            // Run moreQs function to ask if more members should be added
+            // Run moreQuestions function to ask if more members should be added
             addMore();
         });
 }
@@ -57,7 +57,7 @@ function intern() {
             const intern = new Intern(response.name, response.id, response.email, response.university);
             // Add intern object to team list
             team.push(intern);
-            // Run moreQs function to ask if more members should be added
+            // Run moreQuestions function to ask if more members should be added
             addMore();
         });
 }
@@ -75,9 +75,8 @@ function addMore() {
                     break;
                 default:
                     console.log("Thank you, your team HTML file has been generated.");
-                    // if done, write to file with info provided
-                    // call the generateTeam function to create the HTML
-                    // https://stackoverflow.com/questions/2496710/writing-files-in-node-js
+                    // If done, write to file with info provided
+                    // Call the generateTeam function to create the HTML
                     fs.writeFileSync("./output/index.html", generateTeam(team));
             }
         });
