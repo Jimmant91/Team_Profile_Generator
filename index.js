@@ -10,6 +10,9 @@ const Intern = require("./lib/Intern");
 //Empty list to push team members to
 const team = [];
 
+//Requiring the generateTeam function to build html when called
+const generateTeam = require("./src/html-template")
+
 // Questions for adding more members or ending 
 const moreQuestions = [
     {
