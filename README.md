@@ -10,7 +10,7 @@
   * [Questions](##-questions)
 
   ## Screenshot
-  ![Screenshot of built template html website](img\htmlScreenshot.png)
+  ![Screenshot of built template html website](./img/htmlScreenshot.png)
 
   ## Demo
   <a href = "https://www.youtube.com/watch?v=GZVP_ZhCrBU">Youtube Link</a>
